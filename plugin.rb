@@ -50,3 +50,4 @@ after_initialize do
     %w[announcements_enabled announcements_content]
 
   SiteSetting.settings.push :announcements_enabled, :announcements_content
+end
