@@ -26,7 +26,7 @@ after_initialize do
     before_action :ensure_admin
 
     def index
-      render json: { announcements: Announcement.all }
+      render "admin_announcements.html.erb"
     end
 
     def create
@@ -50,4 +50,3 @@ after_initialize do
     %w[announcements_enabled announcements_content]
 
   SiteSetting.settings.push :announcements_enabled, :announcements_content
-end
