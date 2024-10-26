@@ -19,6 +19,7 @@ after_initialize do
     mount ::Announcements::Engine, at: "/announcements"
   end
 
+  require_dependency 'application_controller'
   class ::Announcements::AdminAnnouncementsController < ::ApplicationController
     requires_plugin Announcements
 
@@ -31,6 +32,7 @@ after_initialize do
     def create
       announcement = Announcement.new(content: params[:content])
       if announcement.save
+        SiteSetting.announcements_content = announcement.content
         render json: { message: "Announcement created successfully." }
       else
         render json: { error: "Failed to create announcement." }, status: :unprocessable_entity
@@ -45,7 +47,7 @@ after_initialize do
   add_admin_route "admin.announcements.title", "announcements"
 
   Discourse::PluginRegistry::SiteSetting.add_editable_category "announcements",
-    %w[announcements_enabled]
+    %w[announcements_enabled announcements_content]
 
-  SiteSetting.settings.push :announcements_enabled
+  SiteSetting.settings.push :announcements_enabled, :announcements_content
 end
