@@ -1,0 +1,7 @@
+plugins:
+  announcements_enabled:
+    default: true
+    client: true
+  announcements_content:
+    default: ""
+    client: false
